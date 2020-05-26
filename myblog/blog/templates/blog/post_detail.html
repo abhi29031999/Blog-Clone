@@ -26,6 +26,7 @@
 
   <hr>
   <a class="btn btn-primary btn-comment" href="{% url 'add_comment_to_post' pk=post.pk %}">Add comment</a>
+  <hr>
   <div class="container">
 
 
@@ -35,12 +36,14 @@
 
               {{ comment.created_date }}
               {% if not comment.approved_comment %}
-                  <a class="btn btn-primary" href="{% url 'comment_remove' pk=comment.pk %}"><span >delete</span></a>
+                
                   <a class="btn btn-primary" href="{% url 'comment_approve' pk=comment.pk %}"><span >approve</span></a>
               {% endif %}
 
           <p>{{ comment.text|safe|linebreaks }}</p>
           <p>Posted by: <strong>{{ comment.author }}</strong></p>
+
+          <a class="btn btn-primary btn-comment" href="{% url 'comment_remove' pk=comment.pk %}"><span>delete</span></a>
 
       {% endif %}
   {% empty %}
