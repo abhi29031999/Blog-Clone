@@ -183,3 +183,41 @@ def comment_remove(request, pk):
     post_pk = comment.post.pk
     comment.delete()
     return redirect('post_detail', pk=post_pk)
+def register(request):
+
+    registered = False
+
+    if request.method == 'POST':
+        # Get info from  forms
+        # It appears as one form to the user on the .html page
+        user_form = UserForm(data=request.POST)
+
+        # Check to see forms are valid
+        if user_form.is_valid():
+
+            # Save User Form to Database
+            user = user_form.save()
+
+            # Hash the password
+            user.set_password(user.password)
+
+            # Update with Hashed password
+            user.save()
+
+            # Registration Successful!
+            registered = True
+
+        else:
+            #  forms was invalid if this else gets called.
+            print(user_form.errors)
+
+    else:
+        # Was not an HTTP post so we just render the forms as blank.
+        user_form = UserForm()
+
+
+    # This is the render and context dictionary to feed
+    # back to the registration.html file page.
+    return render(request,'registration.html',
+                          {'user_form':user_form,
+                           'registered':registered})
