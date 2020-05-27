@@ -52,6 +52,7 @@
             <a class="nav-item nav-link" >Welcome: {{ user.username }}</a>
 
             {% else %}
+            <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
             <a class="nav-item nav-link" class="nav-item nav-link" href="{% url 'login' %}" ><span>LOG</span></a>
           {% endif %}
 
